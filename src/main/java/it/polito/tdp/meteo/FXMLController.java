@@ -25,7 +25,7 @@ public class FXMLController {
     private URL location;
 
     @FXML // fx:id="boxMese"
-    private ChoiceBox<?> boxMese; // Value injected by FXMLLoader
+    private ChoiceBox<Integer> boxMese; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnUmidita"
     private Button btnUmidita; // Value injected by FXMLLoader
@@ -38,12 +38,14 @@ public class FXMLController {
 
     @FXML
     void doCalcolaSequenza(ActionEvent event) {
-
+    	String s = model.trovaSequenza(this.boxMese.getValue());
+    	this.txtResult.setText(s);
     }
 
     @FXML
     void doCalcolaUmidita(ActionEvent event) {
-
+    	String umiditaMedia = this.model.getUmiditaMedia(this.boxMese.getValue());
+    	this.txtResult.setText(umiditaMedia);
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -52,7 +54,11 @@ public class FXMLController {
         assert btnUmidita != null : "fx:id=\"btnUmidita\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnCalcola != null : "fx:id=\"btnCalcola\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
-
+        
+        for (int i=1; i<=12; i++) {
+        	boxMese.getItems().add(i);
+        }
+        
     }
     
     public void setModel(Model model) {
